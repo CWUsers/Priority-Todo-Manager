@@ -1,2 +1,46 @@
 creds.json
 cred*
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Production build folder
+/build
+
+# dotenv environment variable files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Debugging logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local Netlify folder
+.netlify/
+
+# IDE and editor directories
+.idea/
+.vscode/
+*.sw?
+
+# Operating System files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+
+# Dist folder for Tailwind CSS build output if you're customizing the build
+/dist
+
+# Optional: If you're using a cache folder for babel or eslint
+.babelrc.json
+.cache/
+.eslintcache
+
