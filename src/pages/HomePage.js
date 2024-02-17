@@ -7,8 +7,8 @@ function HomePage() {
     <div className="bg-light-mint min-h-screen flex flex-col">
       {/* Blue background wrapper */}
       <div className="bg-light-blue w-full flex justify-between p-4">
-        <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/6"/>
-        <img src={cwuImg} alt="CWU School Logo" className="w-1/2"/>
+        <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/12"/>
+        <img src={cwuImg} alt="CWU School Logo" className="w-1/4"/>
       </div>
       
       {/* Content */}
