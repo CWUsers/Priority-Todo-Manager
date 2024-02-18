@@ -29,7 +29,7 @@ const TodoPage = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ todo: todoInput }),
+                body: JSON.stringify({ task: todoInput }), // Changed from { todo: todoInput }
             });
             if (response.ok) {
                 setTodoInput(''); // Clear the input field
@@ -40,17 +40,16 @@ const TodoPage = () => {
         }
     };
 
-    const handleRemoveTodo = async () => {
+    const handleRemoveTodo = async (id) => { // Assuming you can pass the ID as an argument
         try {
             const response = await fetch(`${serverUrl}/api/todos/remove`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ todo: todoInput }),
+                body: JSON.stringify({ id }), // Now sending the ID for deletion
             });
             if (response.ok) {
-                setTodoInput(''); // Clear the input field
                 fetchTodos(); // Refresh the todos list
             }
         } catch (error) {
@@ -80,15 +79,17 @@ const TodoPage = () => {
                     className="border border-gray-300 rounded p-2 mr-2"
                 />
                 <button onClick={handleAddTodo} className="bg-blue-500 text-white px-4 py-2 rounded">Add Todo</button>
-                <button onClick={handleRemoveTodo} className="bg-red-500 text-white px-4 py-2 rounded">Remove Todo</button>
             </div>
             
             {/* Todo list */}
             <div className="flex flex-col items-center mt-4">
                 <h1 className="text-3xl font-bold underline">Todo List</h1>
                 <ul>
-                    {todos.map((todo, index) => (
-                        <li key={index}>{todo}</li>
+                    {todos.map((todo) => (
+                        <li key={todo.id}>
+                            {todo.task} {todo.id}
+                            <button onClick={() => handleRemoveTodo(todo.id)} className="bg-red-500 text-white px-4 py-2 rounded ml-4">Remove</button>
+                        </li>
                     ))}
                 </ul>
             </div>
