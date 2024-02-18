@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import crimsonImg from '../public/crimson.png';
 import cwuImg from '../public/cwu.png';
+import Clock from './Clock';
 
 const TodoPage = () => {
     const [todoInput, setTodoInput] = useState('');
     const [todos, setTodos] = useState([]);
 
-    // Define serverUrl here for use in API calls
     const serverUrl = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
 
     const fetchTodos = async () => {
@@ -95,6 +95,7 @@ const TodoPage = () => {
             </div>
             <div className="flex flex-col items-center mt-4">
                 <h1 className="text-3xl font-bold underline">Todo List</h1>
+                <Clock />
                 <ul>
                     {todos.map((todo) => (
                         <li key={todo.id}>
@@ -104,10 +105,12 @@ const TodoPage = () => {
                                 onChange={(e) => handlePriorityChange(todo.id, e.target.value)}
                                 className="ml-1"
                             >
+                                <option value="lowest">Lowest</option>
                                 <option value="low">Low</option>
                                 <option value="normal">Normal</option>
                                 <option value="high">High</option>
-                            </select>)
+                                <option value="highest">Highest</option>
+                            </select>
                             <button onClick={() => handleRemoveTodo(todo.id)} className="bg-red-500 text-white px-4 py-2 rounded ml-4">Remove</button>
                         </li>
                     ))}
