@@ -11,13 +11,34 @@ app.use(express.json());
 
 // Add a todo item
 app.post('/api/todos/add', async (req, res) => {
-    const { task } = req.body;
-    const id = uuidv4(); // Generate a unique ID for the task
+    const { task, priority = 'normal' } = req.body; // Set default priority to 'normal'
+    const id = uuidv4();
     const todoKey = `todo:${id}`;
 
     try {
-        await redisClient.hset(todoKey, 'id', id, 'task', task);
+        await redisClient.hset(todoKey, 'id', id, 'task', task, 'priority', priority);
         res.status(200).json({ message: 'Todo added successfully', id });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal server error');
+    }
+});
+
+// Update priority of a todo item
+app.put('/api/todos/updatePriority', async (req, res) => {
+    const { id, priority } = req.body;
+    const todoKey = `todo:${id}`;
+
+    try {
+        // Check if the todo item exists
+        const exists = await redisClient.exists(todoKey);
+        if (!exists) {
+            return res.status(404).send('Todo not found');
+        }
+
+        // Update the priority
+        await redisClient.hset(todoKey, 'priority', priority);
+        res.status(200).send('Priority updated successfully');
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal server error');

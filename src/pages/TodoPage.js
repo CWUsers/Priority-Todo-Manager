@@ -29,48 +29,61 @@ const TodoPage = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ task: todoInput }), // Changed from { todo: todoInput }
+                body: JSON.stringify({ task: todoInput, priority: 'normal' }),
             });
             if (response.ok) {
-                setTodoInput(''); // Clear the input field
-                fetchTodos(); // Refresh the todos list
+                setTodoInput('');
+                fetchTodos();
             }
         } catch (error) {
             console.error('Error adding todo:', error);
         }
     };
 
-    const handleRemoveTodo = async (id) => { // Assuming you can pass the ID as an argument
+    const handleRemoveTodo = async (id) => {
         try {
             const response = await fetch(`${serverUrl}/api/todos/remove`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ id }), // Now sending the ID for deletion
+                body: JSON.stringify({ id }),
             });
             if (response.ok) {
-                fetchTodos(); // Refresh the todos list
+                fetchTodos();
             }
         } catch (error) {
             console.error('Error removing todo:', error);
         }
     };
 
-    // Use useEffect to fetch todos when the component mounts
+    const handlePriorityChange = async (id, priority) => {
+        try {
+            const response = await fetch(`${serverUrl}/api/todos/updatePriority`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id, priority }),
+            });
+            if (response.ok) {
+                fetchTodos();
+            }
+        } catch (error) {
+            console.error('Error updating priority:', error);
+        }
+    };
+
     useEffect(() => {
         fetchTodos();
     }, []);
 
     return (
         <div className="bg-light-mint min-h-screen flex flex-col">
-            {/* Header */}
             <div className="bg-light-blue w-full flex justify-between p-4">
                 <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/12"/>
                 <img src={cwuImg} alt="CWU School Logo" className="w-1/4"/>
             </div>
-
-            {/* Todo input */}
             <div className="p-4">
                 <input
                     type="text"
@@ -80,21 +93,26 @@ const TodoPage = () => {
                 />
                 <button onClick={handleAddTodo} className="bg-blue-500 text-white px-4 py-2 rounded">Add Todo</button>
             </div>
-            
-            {/* Todo list */}
             <div className="flex flex-col items-center mt-4">
                 <h1 className="text-3xl font-bold underline">Todo List</h1>
                 <ul>
                     {todos.map((todo) => (
                         <li key={todo.id}>
-                            {todo.task} {todo.id}
+                            {todo.task} (Priority:
+                            <select
+                                value={todo.priority}
+                                onChange={(e) => handlePriorityChange(todo.id, e.target.value)}
+                                className="ml-1"
+                            >
+                                <option value="low">Low</option>
+                                <option value="normal">Normal</option>
+                                <option value="high">High</option>
+                            </select>)
                             <button onClick={() => handleRemoveTodo(todo.id)} className="bg-red-500 text-white px-4 py-2 rounded ml-4">Remove</button>
                         </li>
                     ))}
                 </ul>
             </div>
-
-            {/* Navigation Link */}
             <div className="mt-4">
                 <Link to="/" className="text-blue-500 hover:text-blue-800">Go to Home Page</Link>
             </div>
