@@ -23,6 +23,11 @@ const TodoPage = () => {
     };
 
     const handleAddTodo = async () => {
+        // Check if the input field is empty
+        if (!todoInput.trim()) {
+            alert('Please enter a task before adding.');
+            return;
+        }
         try {
             const response = await fetch(`${serverUrl}/api/todos/add`, {
                 method: 'POST',
@@ -110,7 +115,7 @@ const TodoPage = () => {
                                 <option value="normal">Normal</option>
                                 <option value="high">High</option>
                                 <option value="highest">Highest</option>
-                            </select>
+                            </select>)
                             <button onClick={() => handleRemoveTodo(todo.id)} className="bg-red-500 text-white px-4 py-2 rounded ml-4">Remove</button>
                         </li>
                     ))}
