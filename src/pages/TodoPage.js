@@ -6,6 +6,7 @@ import Clock from './Clock';
 
 const TodoPage = () => {
     const [todoInput, setTodoInput] = useState('');
+    const [priority, setPriority] = useState('normal');
     const [todos, setTodos] = useState([]);
 
     const serverUrl = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
@@ -34,7 +35,7 @@ const TodoPage = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ task: todoInput, priority: 'normal' }),
+                body: JSON.stringify({ task: todoInput, priority }),
             });
             if (response.ok) {
                 setTodoInput('');
@@ -90,13 +91,34 @@ const TodoPage = () => {
                 <img src={cwuImg} alt="CWU School Logo" className="w-1/4"/>
             </div>
             <div className="p-4">
-                <input
-                    type="text"
-                    value={todoInput}
-                    onChange={(e) => setTodoInput(e.target.value)}
-                    className="border border-gray-300 rounded p-2 mr-2"
-                />
-                <button onClick={handleAddTodo} className="bg-blue-500 text-white px-4 py-2 rounded">Add Todo</button>
+                <div className="flex justify-center">
+                    <div className="flex items-center mr-4">
+                        <label htmlFor="taskInput" className="mr-2">Task Name:</label>
+                        <input
+                            type="text"
+                            id="taskInput"
+                            value={todoInput}
+                            onChange={(e) => setTodoInput(e.target.value)}
+                            className="border border-gray-300 rounded p-2"
+                        />
+                    </div>
+                    <div className="flex items-center">
+                        <label htmlFor="prioritySelect" className="mr-2">Priority:</label>
+                        <select
+                            id="prioritySelect"
+                            value={priority}
+                            onChange={(e) => setPriority(e.target.value)}
+                            className="border border-gray-300 rounded p-2"
+                        >
+                            <option value="lowest">Lowest</option>
+                            <option value="low">Low</option>
+                            <option value="normal">Normal</option>
+                            <option value="high">High</option>
+                            <option value="highest">Highest</option>
+                        </select>
+                    </div>
+                    <button onClick={handleAddTodo} className="bg-blue-500 text-white px-4 py-2 rounded ml-2">Add Todo</button>
+                </div>
             </div>
             <div className="flex flex-col items-center mt-4">
                 <h1 className="text-3xl font-bold underline">Todo List</h1>
