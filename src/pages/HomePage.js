@@ -15,9 +15,9 @@ function HomePage() {
       {/* Content */}
       <div className="flex flex-col items-center mt-4 p-4">
         <h1 className="text-3xl font-bold underline">
-          CWUsers Todo Application Home
+          Priority Todo Manager
         </h1>
-        <b>Developed for MLP Crimson Code Hackathon 2024</b>
+        <b>Developed by CWUsers for MLP Crimson Code Hackathon 2024</b>
         <Clock />
         <Link to="/todos" className="text-blue-500 hover:text-blue-800 mt-4">Go to Todo Page</Link>
       </div>

@@ -71,7 +71,14 @@ app.get('/api/todos', async (req, res) => {
             const todo = await redisClient.hgetall(key);
             return todo;
         }));
-        res.status(200).json(todos);
+
+        // Sort todos by priority
+        const sortedTodos = todos.sort((a, b) => {
+            const priorityOrder = { 'lowest': 0, 'low': 1, 'normal': 2, 'high': 3, 'highest': 4 };
+            return priorityOrder[b.priority] - priorityOrder[a.priority];
+        });
+
+        res.status(200).json(sortedTodos);
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal server error');

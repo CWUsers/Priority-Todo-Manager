@@ -89,24 +89,22 @@ const TodoPage = () => {
                 <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/12"/>
                 <img src={cwuImg} alt="CWU School Logo" className="w-1/4"/>
             </div>
+            <div className="p-4">
+                <input
+                    type="text"
+                    value={todoInput}
+                    onChange={(e) => setTodoInput(e.target.value)}
+                    className="border border-gray-300 rounded p-2 mr-2"
+                />
+                <button onClick={handleAddTodo} className="bg-blue-500 text-white px-4 py-2 rounded">Add Todo</button>
+            </div>
             <div className="flex flex-col items-center mt-4">
                 <h1 className="text-3xl font-bold underline">Todo List</h1>
                 <Clock />
-                <div className="p-4 flex justify-center"> {/* Centering the entry box and add button */}
-                <div>
-                    <input
-                        type="text"
-                        value={todoInput}
-                        onChange={(e) => setTodoInput(e.target.value)}
-                        className="border border-gray-300 rounded p-2 mr-2"
-                    />
-                    <button onClick={handleAddTodo} className="bg-blue-500 text-white px-4 py-2 rounded">Add Todo</button>
-                </div>
-            </div>
                 <ul>
-                    {todos.map((todo) => (
+                    {todos.map((todo, index) => (
                         <li key={todo.id}>
-                            {todo.task} (Priority:
+                            {index}: {todo.task} (Priority:
                             <select
                                 value={todo.priority}
                                 onChange={(e) => handlePriorityChange(todo.id, e.target.value)}
