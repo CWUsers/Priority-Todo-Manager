@@ -2,13 +2,23 @@ import React from 'react';
 import crimsonImg from '../public/crimson.png';
 import cwuImg from '../public/cwu.png';
 import teamImg from '../public/team.png'; 
+import skylineImg from '../public/skyline.png';
 import { Link } from 'react-router-dom';
 import Clock from './Clock';
 
 const AboutPage = () => {
   return (
     <div className="bg-light-mint min-h-screen flex flex-col">
-      <div className="bg-light-blue w-full flex justify-between p-4">      
+      {/* Top banner with skyline backdrop image */}
+      <div 
+        className="w-full flex justify-between p-4" 
+        style={{ 
+          backgroundImage: `url(${skylineImg})`, 
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center center', 
+          backgroundRepeat: 'no-repeat'
+        }}
+      >      
         <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/12"/>
         <img src={cwuImg} alt="CWU School Logo" className="w-1/4"/>
       </div>

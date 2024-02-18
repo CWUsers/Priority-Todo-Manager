@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import crimsonImg from '../public/crimson.png';
 import cwuImg from '../public/cwu.png';
+import skylineImg from '../public/skyline.png';
 import Clock from './Clock';
 
 function HomePage() {
@@ -82,8 +83,16 @@ function HomePage() {
 
   return (
     <div className="bg-light-mint min-h-screen flex flex-col">
-      {/* Blue background wrapper */}
-      <div className="bg-light-blue w-full flex justify-between p-4">      
+      {/* Top banner with skyline backdrop image */}
+      <div 
+        className="w-full flex justify-between p-4" 
+        style={{ 
+          backgroundImage: `url(${skylineImg})`, 
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center center', 
+          backgroundRepeat: 'no-repeat'
+        }}
+      >      
         <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/12"/>
         <img src={cwuImg} alt="CWU School Logo" className="w-1/4"/>
       </div>
@@ -93,7 +102,7 @@ function HomePage() {
         <h1 className="text-3xl font-bold underline">
           Priority Todo Manager
         </h1>
-        <b>Developed by CWUsers for MLP Crimson Code Hackathon 2024</b>
+        <b>Developed by team CWUsers for MLP Crimson Code Hackathon 2024</b>
         <div className="mt-4">
           <h2 className="text-xl font-bold mb-2">Remaining TODO tasks:</h2>
           <ul>

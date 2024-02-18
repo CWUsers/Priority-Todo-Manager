@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import crimsonImg from '../public/crimson.png';
 import cwuImg from '../public/cwu.png';
+import skylineImg from '../public/skyline.png';
 import Clock from './Clock';
 
 const TodoPage = () => {
@@ -108,10 +109,19 @@ const TodoPage = () => {
 
     return (
         <div className="bg-light-mint min-h-screen flex flex-col">
-            <div className="bg-light-blue w-full flex justify-between p-4">
-                <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/12"/>
-                <img src={cwuImg} alt="CWU School Logo" className="w-1/4"/>
-            </div>
+          {/* Top banner with skyline backdrop image */}
+          <div 
+            className="w-full flex justify-between p-4" 
+            style={{ 
+              backgroundImage: `url(${skylineImg})`, 
+              backgroundSize: 'cover', 
+              backgroundPosition: 'center center', 
+              backgroundRepeat: 'no-repeat'
+            }}
+          >      
+            <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/12"/>
+            <img src={cwuImg} alt="CWU School Logo" className="w-1/4"/>
+          </div>
             <div className="p-4">
                 <div className="flex justify-center">
                     <div className="flex items-center mr-4">
