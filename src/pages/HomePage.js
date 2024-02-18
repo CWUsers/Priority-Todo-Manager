@@ -13,6 +13,14 @@ function HomePage() {
     lowest: 0
   });
 
+  const [completedPriorityCounts, setCompletedPriorityCounts] = useState({
+    highest: 0,
+    high: 0,
+    normal: 0,
+    low: 0,
+    lowest: 0
+  });
+
   const serverUrl = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
 
   useEffect(() => {
@@ -21,17 +29,31 @@ function HomePage() {
         const response = await fetch(`${serverUrl}/api/todos`);
         if (response.ok) {
           const todos = await response.json();
-          const counts = {
+          const priorityCounts = {
             highest: 0,
             high: 0,
             normal: 0,
             low: 0,
             lowest: 0
           };
+          const completedPriorityCounts = {
+            highest: 0,
+            high: 0,
+            normal: 0,
+            low: 0,
+            lowest: 0
+          };
+
           todos.forEach(todo => {
-            counts[todo.priority]++;
+            if (todo.status === 'completed') {
+              completedPriorityCounts[todo.priority]++;
+            } else {
+              priorityCounts[todo.priority]++;
+            }
           });
-          setPriorityCounts(counts);
+
+          setPriorityCounts(priorityCounts);
+          setCompletedPriorityCounts(completedPriorityCounts);
         }
       } catch (error) {
         console.error('Error fetching priority counts:', error);
@@ -97,6 +119,33 @@ function HomePage() {
             </li>
           </ul>
         </div>
+
+        <div className="mt-4">
+          <h2 className="text-xl font-bold mb-2">Completed tasks:</h2>
+          <ul>
+            <li className="flex items-center">
+              <div className={`w-6 h-6 rounded-full mr-2 ${getPriorityColor('highest')}`}></div>
+              Highest Priority ({completedPriorityCounts.highest})
+            </li>
+            <li className="flex items-center">
+              <div className={`w-6 h-6 rounded-full mr-2 ${getPriorityColor('high')}`}></div>
+              High Priority ({completedPriorityCounts.high})
+            </li>
+            <li className="flex items-center">
+              <div className={`w-6 h-6 rounded-full mr-2 ${getPriorityColor('normal')}`}></div>
+              Normal Priority ({completedPriorityCounts.normal})
+            </li>
+            <li className="flex items-center">
+              <div className={`w-6 h-6 rounded-full mr-2 ${getPriorityColor('low')}`}></div>
+              Low Priority ({completedPriorityCounts.low})
+            </li>
+            <li className="flex items-center">
+              <div className={`w-6 h-6 rounded-full mr-2 ${getPriorityColor('lowest')}`}></div>
+              Lowest Priority ({completedPriorityCounts.lowest})
+            </li>
+          </ul>
+        </div>
+
         <Clock />
         <Link to="/todos" className="text-blue-500 hover:text-blue-800 mt-4">Go to Todo Page</Link>
         <Link to="/about" className="text-blue-500 hover:text-blue-800 mt-4">About Us</Link>
