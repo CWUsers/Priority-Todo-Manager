@@ -2,6 +2,24 @@
 
 Welcome to the Priority Todo Manager, an innovative task management application developed by Team #2 CWUsers from Central Washington University for the MLP Crimson Code Hackathon 2024.
 
+## Home Page
+
+![Home Page](images/home.png)
+
+The home page provides a quick overview of your tasks and their priorities.
+
+## Todo Page
+
+![Todo Page](images/todo.png)
+
+On the Todo page, you can add new tasks, set their priority, and mark tasks as completed.
+
+## About Page
+
+![About Page](images/about.png)
+
+The About page gives information about the project and its contributors.
+
 ## Getting Started
 
 Clone the repository and navigate to the project directory to begin. Below are the commands to set up and run the application.
