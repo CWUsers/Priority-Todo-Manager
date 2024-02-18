@@ -63,7 +63,7 @@ function HomePage() {
     labels: priorityMap,
     datasets: [
       {
-        label: 'Tasks',
+        label: 'Remainig Tasks',
         data: priorityMap.map(priority => priorityCounts[priority]),
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
