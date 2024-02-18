@@ -18,7 +18,10 @@ app.post("/api/todos/add", async (req, res) => {
   const status = "new";
   const desc = " ";
   const category = " ";
-  const createdAt = currentTime.toISOString();
+  const createdAt = currentTime.toLocaleString("en-US", {
+    timeZoneName: "short",
+  });
+  const finishedAt = "N/A";
   try {
     await redisClient.hset(
       todoKey,
@@ -36,6 +39,8 @@ app.post("/api/todos/add", async (req, res) => {
       category,
       "created_time",
       createdAt,
+      "end_time",
+      finishedAt,
     );
     res.status(200).json({ message: "Todo added successfully", id });
   } catch (error) {
@@ -69,7 +74,9 @@ app.put("/api/todos/updatePriority", async (req, res) => {
 app.put("/api/todos/complete", async (req, res) => {
   const { id } = req.body;
   const todoKey = `todo:${id}`;
-
+  const finishedAt = new Date().toLocaleString("en-US", {
+    timeZoneName: "short",
+  });
   try {
     // Check if the todo item exists
     const exists = await redisClient.exists(todoKey);
@@ -78,7 +85,13 @@ app.put("/api/todos/complete", async (req, res) => {
     }
 
     // Mark the todo item as completed
-    await redisClient.hset(todoKey, "status", "completed");
+    await redisClient.hset(
+      todoKey,
+      "status",
+      "completed",
+      "end_time",
+      finishedAt,
+    );
     res.status(200).send("Todo marked as completed successfully");
   } catch (error) {
     console.error(error);
@@ -138,4 +151,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
