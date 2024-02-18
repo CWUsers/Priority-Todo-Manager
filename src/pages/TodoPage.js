@@ -8,6 +8,8 @@ const TodoPage = () => {
     const [todoInput, setTodoInput] = useState('');
     const [priority, setPriority] = useState('normal');
     const [todos, setTodos] = useState([]);
+    const [completedTodos, setCompletedTodos] = useState([]); // State for completed tasks
+    const [completedCount, setCompletedCount] = useState(0); // State to store completed tasks count
 
     const serverUrl = process.env.REACT_APP_SERVER_URL || 'http://localhost:5000';
 
@@ -16,7 +18,8 @@ const TodoPage = () => {
             const response = await fetch(`${serverUrl}/api/todos`);
             if (response.ok) {
                 const fetchedTodos = await response.json();
-                setTodos(fetchedTodos);
+                setTodos(fetchedTodos.filter(todo => todo.status !== 'completed')); // Filter out completed tasks
+                setCompletedTodos(fetchedTodos.filter(todo => todo.status === 'completed')); // Set completed tasks
             }
         } catch (error) {
             console.error('Error fetching todos:', error);
@@ -63,6 +66,25 @@ const TodoPage = () => {
         }
     };
 
+    const handleCompleteTodo = async (id) => {
+        try {
+            const response = await fetch(`${serverUrl}/api/todos/complete`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id }),
+            });
+            if (response.ok) {
+                // Increment completed count
+                setCompletedCount(prevCount => prevCount + 1);
+                fetchTodos();
+            }
+        } catch (error) {
+            console.error('Error completing todo:', error);
+        }
+    };
+
     const handlePriorityChange = async (id, priority) => {
         try {
             const response = await fetch(`${serverUrl}/api/todos/updatePriority`, {
@@ -102,7 +124,7 @@ const TodoPage = () => {
                             className="border border-gray-300 rounded p-2"
                         />
                     </div>
-                    <div className="flex items-center">
+                    <div className="flex items-center mr-4">
                         <label htmlFor="prioritySelect" className="mr-2">Priority:</label>
                         <select
                             id="prioritySelect"
@@ -117,7 +139,7 @@ const TodoPage = () => {
                             <option value="highest">Highest</option>
                         </select>
                     </div>
-                    <button onClick={handleAddTodo} className="bg-blue-500 text-white px-4 py-2 rounded ml-2">Add Todo</button>
+                    <button onClick={handleAddTodo} className="bg-blue-500 text-white px-4 py-2 rounded">Add Todo</button>
                 </div>
             </div>
             <div className="flex flex-col items-center mt-4">
@@ -139,6 +161,17 @@ const TodoPage = () => {
                                 <option value="highest">Highest</option>
                             </select>)
                             <button onClick={() => handleRemoveTodo(todo.id)} className="bg-red-500 text-white px-4 py-2 rounded ml-4">Remove</button>
+                            <button onClick={() => handleCompleteTodo(todo.id)} className="bg-green-500 text-white px-4 py-2 rounded ml-4">Complete</button> {/* Added Complete button */}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div className="flex flex-col items-center mt-4">
+                <h1 className="text-3xl font-bold underline">Completed Tasks</h1>
+                <ul>
+                    {completedTodos.map((todo, index) => (
+                        <li key={todo.id}>
+                            {index}: {todo.task} (Priority: {todo.priority})
                         </li>
                     ))}
                 </ul>
