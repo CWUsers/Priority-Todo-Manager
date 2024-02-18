@@ -14,8 +14,10 @@ const AboutPage = () => {
       </div>
       <div className="flex flex-col items-center mt-4 p-4">
         <h1 className="text-3xl font-bold underline">About Us</h1>
-        <p>This project was developed by CWUsers for the MLP Crimson Code Hackathon 2024.</p>
-        <img src={teamImg} alt="Our Team" className="mt-4 max-w-full h-auto w-1/2" />
+        <p>This project was developed by Central Washington University's Team #2 CWUsers for the MLP Crimson Code Hackathon 2024.</p>
+        <p>Programmed by: Alice Williams, Jake Robinson, and Connor Dunning over the span of 24 hours.</p>
+        <p>Technology stack: Redis, React, React-router, Node.js, Express.js, Tailwind-css.</p>
+        <img src={teamImg} alt="Our Team" className="mt-4 max-w-full h-auto w-1/3" />
         <Clock />
         <Link to="/" className="text-blue-500 hover:text-blue-800 mt-4">Go back to Home Page</Link>
       </div>

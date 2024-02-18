@@ -146,31 +146,33 @@ const TodoPage = () => {
                 <h1 className="text-3xl font-bold underline">Todo List</h1>
                 <Clock />
                 <ul>
-                    {todos.map((todo, index) => (
-                        <li key={todo.id}>
-                            {index}: {todo.task} (Priority:
-                            <select
-                                value={todo.priority}
-                                onChange={(e) => handlePriorityChange(todo.id, e.target.value)}
-                                className="ml-1"
-                            >
-                                <option value="lowest">Lowest</option>
-                                <option value="low">Low</option>
-                                <option value="normal">Normal</option>
-                                <option value="high">High</option>
-                                <option value="highest">Highest</option>
-                            </select>)
-                            <button onClick={() => handleRemoveTodo(todo.id)} className="bg-red-500 text-white px-4 py-2 rounded ml-4">Remove</button>
-                            <button onClick={() => handleCompleteTodo(todo.id)} className="bg-green-500 text-white px-4 py-2 rounded ml-4">Complete</button> {/* Added Complete button */}
-                        </li>
-                    ))}
+                  {todos.map((todo, index) => (
+                    <li key={todo.id} className="w-full flex justify-between items-center mb-2"> {/* Ensure flex and consistent spacing between items */}
+                      <span className="flex-1 truncate">{index}: {todo.task}</span> {/* Truncate long text */}
+                      <span>(Priority:
+                        <select
+                          value={todo.priority}
+                          onChange={(e) => handlePriorityChange(todo.id, e.target.value)}
+                          className="mx-2"
+                        >
+                          <option value="lowest">Lowest</option>
+                          <option value="low">Low</option>
+                          <option value="normal">Normal</option>
+                          <option value="high">High</option>
+                          <option value="highest">Highest</option>
+                        </select>)
+                      </span>
+                      <button onClick={() => handleRemoveTodo(todo.id)} className="bg-red-500 text-white px-4 py-2 rounded ml-4">Remove</button>
+                      <button onClick={() => handleCompleteTodo(todo.id)} className="bg-green-500 text-white px-4 py-2 rounded ml-4">Complete</button>
+                    </li>
+                  ))}
                 </ul>
             </div>
             <div className="flex flex-col items-center mt-4">
                 <h1 className="text-3xl font-bold underline">Completed Tasks</h1>
                 <ul>
                     {completedTodos.map((todo, index) => (
-                        <li key={todo.id}>
+                        <li key={todo.id} className="w-full"> {/* Added container with consistent width */}
                             {index}: {todo.task} (Priority: {todo.priority})
                         </li>
                     ))}
