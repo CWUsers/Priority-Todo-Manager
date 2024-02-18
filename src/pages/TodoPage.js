@@ -239,7 +239,24 @@ const TodoPage = () => {
             <li key={todo.id} className="w-full">
               {" "}
               {/* Added container with consistent width */}
-              {index}: {todo.task} (Priority: {todo.priority})
+              {index}: {todo.task} (Priority: {todo.priority}) | Completed At:{" "}
+              {(() => {
+                const createdAtDate = new Date(todo.end_time);
+                const timeString = createdAtDate.toLocaleTimeString("en-US", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: true,
+                });
+                const dateString = createdAtDate.toLocaleDateString("en-US", {
+                  month: "2-digit",
+                  day: "2-digit",
+                  year: "numeric",
+                });
+                const timeZoneName = createdAtDate
+                  .toLocaleTimeString("en-US", { timeZoneName: "short" })
+                  .split(" ")[2];
+                return `${timeString} ${timeZoneName} | ${dateString}`;
+              })()}
             </li>
           ))}
         </ul>
