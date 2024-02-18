@@ -99,6 +99,7 @@ function HomePage() {
         </div>
         <Clock />
         <Link to="/todos" className="text-blue-500 hover:text-blue-800 mt-4">Go to Todo Page</Link>
+        <Link to="/about" className="text-blue-500 hover:text-blue-800 mt-4">About Us</Link>
       </div>
     </div>
   );
