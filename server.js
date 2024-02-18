@@ -18,7 +18,9 @@ app.post("/api/todos/add", async (req, res) => {
   const status = "new";
   const desc = " ";
   const category = " ";
-  const createdAt = currentTime.toISOString();
+  const createdAt = currentTime.toLocaleString("en-US", {
+    timeZoneName: "short",
+  });
   try {
     await redisClient.hset(
       todoKey,
@@ -138,4 +140,3 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
-
