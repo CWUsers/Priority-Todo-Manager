@@ -92,7 +92,6 @@ function HomePage() {
           backgroundRepeat: 'no-repeat'
         }}
       >
-        {/* Left side with Crimson Code logo and title */}
         <div className="flex items-center">
           <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/12"/>
           <h1 className="text-5xl text-white font-bold pl-4">

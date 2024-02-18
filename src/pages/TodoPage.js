@@ -121,7 +121,12 @@ const TodoPage = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/12" />
+        <div className="flex items-center">
+          <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/12"/>
+          <h1 className="text-5xl text-white font-bold pl-4">
+            Priority Todo Manager
+          </h1>
+        </div>
         <img src={cwuImg} alt="CWU School Logo" className="w-1/4" />
       </div>
       <div className="p-4">
