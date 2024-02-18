@@ -1,0 +1,7 @@
+.clock-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 10px;
+}
+
