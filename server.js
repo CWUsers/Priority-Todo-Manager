@@ -11,14 +11,14 @@ app.use(express.json());
 
 // Add a todo item
 app.post("/api/todos/add", async (req, res) => {
-  const [currentTime] = useState(new Date());
+  const currentTime = new Date();
   const { task, priority = "normal" } = req.body; // Set default priority to 'normal'
   const id = uuidv4();
   const todoKey = `todo:${id}`;
   const status = "new";
   const desc = " ";
   const category = " ";
-  const createdAt = currentTime.toDateString();
+  const createdAt = currentTime.toISOString();
   try {
     await redisClient.hset(
       todoKey,
