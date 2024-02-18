@@ -244,13 +244,14 @@ const TodoPage = () => {
           ))}
         </ul>
       </div>
-      <div className="mt-4 flex justify-center">
-        <Link to="/" className="text-blue-500 hover:text-blue-800">
-          Go to Home Page
-        </Link>
-      </div>
+      <div className="flex justify-center mt-4 space-x-4">
+             <Link to="/" className="text-blue-500 hover:text-blue-800">Home Page</Link>
+             <Link to="/about" className="text-blue-500 hover:text-blue-800">About Us</Link>
+        </div>
+        <b>Developed by team CWUsers for MLP Crimson Code Hackathon 2024</b>
     </div>
   );
 };
 
 export default TodoPage;
+

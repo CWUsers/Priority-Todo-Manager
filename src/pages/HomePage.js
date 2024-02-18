@@ -83,28 +83,34 @@ function HomePage() {
 
   return (
     <div className="bg-light-mint min-h-screen flex flex-col">
-      {/* Top banner with skyline backdrop image */}
       <div 
-        className="w-full flex justify-between p-4" 
+        className="w-full flex justify-between items-center p-4" 
         style={{ 
           backgroundImage: `url(${skylineImg})`, 
           backgroundSize: 'cover', 
           backgroundPosition: 'center center', 
           backgroundRepeat: 'no-repeat'
         }}
-      >      
-        <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/12"/>
+      >
+        {/* Left side with Crimson Code logo and title */}
+        <div className="flex items-center">
+          <img src={crimsonImg} alt="Crimson Code Logo" className="w-1/12"/>
+          <h1 className="text-5xl text-white font-bold pl-4">
+            Priority Todo Manager
+          </h1>
+        </div>
+
+        <div className="flex-grow"></div>
+
         <img src={cwuImg} alt="CWU School Logo" className="w-1/4"/>
       </div>
       
-      {/* Content */}
       <div className="flex flex-col items-center mt-4 p-4">
-        <h1 className="text-3xl font-bold underline">
-          Priority Todo Manager
-        </h1>
-        <b>Developed by team CWUsers for MLP Crimson Code Hackathon 2024</b>
+      
+        <h1 className="text-5xl font-bold pl-4">Todo Manager Overview</h1>
         <div className="mt-4">
-          <h2 className="text-xl font-bold mb-2">Remaining TODO tasks:</h2>
+          
+          <h2 className="text-xl font-bold mb-2">Remaining Tasks:</h2>
           <ul>
             <li className="flex items-center">
               <div className={`w-6 h-6 rounded-full mr-2 ${getPriorityColor('highest')}`}></div>
@@ -130,7 +136,7 @@ function HomePage() {
         </div>
 
         <div className="mt-4">
-          <h2 className="text-xl font-bold mb-2">Completed tasks:</h2>
+          <h2 className="text-xl font-bold mb-2">Completed Tasks:</h2>
           <ul>
             <li className="flex items-center">
               <div className={`w-6 h-6 rounded-full mr-2 ${getPriorityColor('highest')}`}></div>
@@ -156,8 +162,11 @@ function HomePage() {
         </div>
 
         <Clock />
-        <Link to="/todos" className="text-blue-500 hover:text-blue-800 mt-4">Go to Todo Page</Link>
-        <Link to="/about" className="text-blue-500 hover:text-blue-800 mt-4">About Us</Link>
+        <div className="flex justify-center mt-4 space-x-4">
+             <Link to="/todos" className="text-blue-500 hover:text-blue-800">Todo Page</Link>
+             <Link to="/about" className="text-blue-500 hover:text-blue-800">About Us</Link>
+        </div>
+        <b>Developed by team CWUsers for MLP Crimson Code Hackathon 2024</b>
       </div>
     </div>
   );
